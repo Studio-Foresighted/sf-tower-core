@@ -57,7 +57,8 @@ export class Game {
         // Scene
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(0x111111);
-        this.scene.fog = new THREE.Fog(0x111111, 30, 90);
+        // Remove fog for better visibility
+        // this.scene.fog = new THREE.Fog(0x111111, 30, 90);
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 1000);
@@ -69,6 +70,8 @@ export class Game {
         this.renderer.setSize(this.width, this.height);
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        // Remove physically correct lighting for arcade style
+        this.renderer.physicallyCorrectLights = false;
 
         // Controls
         this.controls = new OrbitControls(this.camera, this.canvas);
@@ -79,9 +82,11 @@ export class Game {
         this.controls.maxDistance = 80;
 
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0x404040, 2); // Soft white light
+        // Strong ambient fill for visibility from all angles
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
         this.scene.add(ambientLight);
 
+        // Directional light with infinite range/no decay
         const dirLight = new THREE.DirectionalLight(0xffffff, 2);
         dirLight.position.set(20, 40, 20);
         dirLight.castShadow = true;
@@ -91,7 +96,13 @@ export class Game {
         dirLight.shadow.camera.right = 40;
         dirLight.shadow.mapSize.width = 2048;
         dirLight.shadow.mapSize.height = 2048;
+        dirLight.distance = 0; // infinite range
+        dirLight.decay = 0;    // no falloff
         this.scene.add(dirLight);
+
+        // Optional: hemisphere light for extra fill
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x222233, 0.4);
+        this.scene.add(hemiLight);
     }
 
     initMap() {
