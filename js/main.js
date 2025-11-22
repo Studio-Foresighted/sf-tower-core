@@ -62,24 +62,15 @@ restartBtn.addEventListener('click', () => {
 });
 
 heroOptions.forEach(option => {
-    btn.addEventListener('click', () => {
-        const type = btn.dataset.type;
-        // Deselect others
-        towerBtns.forEach(b => b.classList.remove('selected'));
-        if (game.placingType === type) {
-            // Cancel placement and deselect
-            game.cancelPlacement();
-            // No button selected
-        } else {
-            // Select
-            game.placingType = type;
-            btn.classList.add('selected');
-        }
-    });
-    btn.addEventListener('click', () => {
-        diffBtns.forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        selectedDifficulty = btn.dataset.diff;
+    option.addEventListener('click', () => {
+        heroOptions.forEach(opt => {
+            opt.classList.remove('selected');
+            opt.style.borderColor = opt.dataset.hero === 'warrior' ? '#ff0000' : '#0000ff';
+            opt.style.backgroundColor = 'transparent';
+        });
+        option.classList.add('selected');
+        option.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+        selectedHero = option.dataset.hero;
     });
 });
 
@@ -124,8 +115,8 @@ towerBtns.forEach(btn => {
         towerBtns.forEach(b => b.classList.remove('selected'));
         
         if (game.placingType === type) {
-            // Cancel
-            game.placingType = null;
+            // Cancel placement and hide ghost object
+            game.cancelPlacement();
         } else {
             // Select
             game.placingType = type;
