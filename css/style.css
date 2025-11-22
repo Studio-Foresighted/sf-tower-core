@@ -1,0 +1,306 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'VT323', monospace;
+    background-color: #111;
+    color: #eee;
+    image-rendering: pixelated;
+}
+
+/* --- Retro RPG UI Theme --- */
+:root {
+    --bg-color: #1a1a1a;
+    --border-light: #888;
+    --border-dark: #000;
+    --text-highlight: #55ff55; /* Green for good stuff */
+    --text-danger: #ff5555;    /* Red for bad stuff */
+    --accent: #ffd700;         /* Gold */
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#ui-layer > * {
+    pointer-events: auto;
+}
+
+#game-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Screens (Menu / Game Over) --- */
+#main-menu, #game-over-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    border: 4px double var(--border-light);
+}
+
+h1 {
+    font-size: 6rem;
+    color: var(--text-danger);
+    text-shadow: 4px 4px #000;
+    margin-bottom: 2rem;
+    font-weight: normal;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 2rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+/* --- Retro Buttons --- */
+button {
+    padding: 10px 30px;
+    font-family: 'VT323', monospace;
+    font-size: 2rem;
+    background: #333;
+    color: white;
+    border: 2px solid #fff;
+    border-top-color: #777;
+    border-left-color: #777;
+    border-bottom-color: #111;
+    border-right-color: #111;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 4px 0 #000;
+    margin: 10px;
+    position: relative;
+}
+
+button:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #000;
+    border-top-color: #111;
+    border-left-color: #111;
+    border-bottom-color: #777;
+    border-right-color: #777;
+}
+
+button:hover {
+    background: #444;
+    color: var(--text-highlight);
+}
+
+/* --- Game UI --- */
+#game-ui {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#game-ui > * {
+    pointer-events: auto;
+}
+
+/* --- Stats Panel (Top Bar Style) --- */
+#stats-panel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--bg-color);
+    padding: 10px 20px;
+    border: 3px double #fff;
+    font-size: 1.8rem;
+    display: flex;
+    gap: 30px;
+    box-shadow: 0 0 0 2px #000, 0 6px 0 rgba(0,0,0,0.5);
+    color: #fff;
+}
+
+#stats-panel span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Build Panel (Inventory Style) --- */
+#build-panel {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    background: var(--bg-color);
+    padding: 15px;
+    border: 3px double #fff;
+    box-shadow: 0 0 0 2px #000, 0 10px 20px rgba(0,0,0,0.8);
+}
+
+.tower-btn {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #555;
+    background: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    image-rendering: pixelated;
+}
+
+.tower-btn:hover {
+    border-color: #fff;
+    background: #333;
+}
+
+.tower-btn.selected {
+    border-color: var(--text-highlight);
+    background: #2a2a2a;
+    box-shadow: inset 0 0 10px var(--text-highlight);
+}
+
+.tower-btn .color-box {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
+    border: 2px solid #000;
+    box-shadow: none;
+}
+
+.tower-btn span {
+    font-size: 1.2rem;
+    color: #aaa;
+}
+
+/* --- Controls & Selection --- */
+#controls-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#speed-panel {
+    position: absolute;
+    top: 150px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: var(--bg-color);
+    padding: 10px;
+    border: 3px double #fff;
+    box-shadow: 0 0 0 2px #000;
+}
+
+.speed-btn {
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    margin: 0;
+    width: 100px;
+    text-align: center;
+}
+
+.speed-btn.selected {
+    background: #555;
+    border-color: var(--text-highlight);
+    color: var(--text-highlight);
+}
+
+#restart-btn {
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    margin: 0;
+    width: 100px;
+}
+
+#restart-btn:hover {
+    background: #500;
+    color: #fff !important;
+}
+
+#next-wave-btn {
+    font-size: 1.5rem;
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+#next-wave-btn:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+#selection-panel {
+    position: absolute;
+    right: 20px;
+    bottom: 150px;
+    width: 250px;
+    background: var(--bg-color);
+    padding: 0;
+    border: 3px double #fff;
+    box-shadow: 0 0 0 2px #000;
+    font-family: 'VT323', monospace;
+}
+
+#selection-panel h3 {
+    background: #333;
+    margin: 0;
+    padding: 10px;
+    border-bottom: 2px solid #555;
+    text-align: center;
+    color: var(--text-highlight);
+    font-size: 1.8rem;
+}
+
+#selection-panel p {
+    padding: 10px 20px;
+    font-size: 1.4rem;
+    margin: 0;
+    border-bottom: 1px solid #333;
+}
+
+#selection-panel button {
+    width: calc(100% - 20px);
+    margin: 10px;
+    font-size: 1.4rem;
+    padding: 8px;
+}
+
+/* --- Hero Selection --- */
+.hero-option {
+    border: 4px solid #444 !important;
+    background: #222;
+    padding: 15px !important;
+    transition: all 0.2s;
+}
+
+.hero-option:hover {
+    border-color: #888 !important;
+    transform: translateY(-2px);
+}
+
+.hero-option.selected {
+    border-color: var(--text-highlight) !important;
+    background: #333;
+    box-shadow: 0 0 15px rgba(85, 255, 85, 0.2);
+}
+
+.hero-option div:first-child {
+    font-size: 1.5rem !important;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px #000;
+}
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Tower Defense</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./js/lib/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="ui-layer">
+        <div id="main-menu">
+            <h1>Neon Defense 3D</h1>
+            
+            <div id="hero-select" style="margin-bottom: 20px;">
+                <h3>Select Hero</h3>
+                <div style="display: flex; gap: 20px;">
+                    <div class="hero-option selected" data-hero="warrior" style="border: 2px solid #ff0000; padding: 10px; cursor: pointer;">
+                        <div style="color: #ff0000; font-weight: bold;">Warrior</div>
+                        <div style="font-size: 0.8rem;">Ability: Damage Boost</div>
+                    </div>
+                    <div class="hero-option" data-hero="mage" style="border: 2px solid #0000ff; padding: 10px; cursor: pointer;">
+                        <div style="color: #0000ff; font-weight: bold;">Mage</div>
+                        <div style="font-size: 0.8rem;">Ability: Slow Enemies</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="difficulty-select" style="margin-bottom: 20px;">
+                <h3>Select Difficulty</h3>
+                <div style="display: flex; gap: 10px;">
+                    <button class="diff-btn selected" data-diff="easy" style="padding: 10px; font-size: 1rem; border-color: #00ff00;">Easy</button>
+                    <button class="diff-btn" data-diff="normal" style="padding: 10px; font-size: 1rem; border-color: #ffff00;">Normal</button>
+                    <button class="diff-btn" data-diff="hard" style="padding: 10px; font-size: 1rem; border-color: #ff0000;">Hard</button>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 20px;">
+                <button id="start-btn">Start Game</button>
+                <button id="bot-btn" style="border-color: #ffd700; color: #ffd700;">BOT IT!</button>
+            </div>
+        </div>
+        
+        <div id="game-ui" style="display: none;">
+            <div id="stats-panel">
+                <div>Money: $<span id="money-display">500</span></div>
+                <div>Lives: <span id="lives-display">20</span></div>
+                <div>Wave: <span id="wave-display">1</span></div>
+            </div>
+
+            <div id="speed-panel">
+                <button class="speed-btn selected" data-speed="1">x1</button>
+                <button class="speed-btn" data-speed="1.25">x1.25</button>
+                <button class="speed-btn" data-speed="1.5">x1.5</button>
+                <button class="speed-btn" data-speed="2">x2</button>
+                <button class="speed-btn" data-speed="4">x4</button>
+                <div style="height: 20px;"></div>
+                <button id="restart-btn" style="border-color: #ff5555; color: #ff5555;">RESTART</button>
+            </div>
+            
+            <div id="build-panel">
+                <div class="tower-btn" data-type="basic" style="border-color: #0088ff;">
+                    <div class="color-box" style="background: #0088ff;"></div>
+                    <span>Basic ($100)</span>
+                </div>
+                <div class="tower-btn" data-type="sniper" style="border-color: #00ff00;">
+                    <div class="color-box" style="background: #00ff00;"></div>
+                    <span>Sniper ($250)</span>
+                </div>
+                <div class="tower-btn" data-type="rapid" style="border-color: #00ffff;">
+                    <div class="color-box" style="background: #00ffff;"></div>
+                    <span>Rapid ($400)</span>
+                </div>
+            </div>
+
+            <div id="controls-panel">
+                <button id="ability-btn" style="margin-bottom: 10px; border-color: #ffd700; font-size: 1rem; padding: 10px;">Hero Ability</button>
+                <button id="next-wave-btn">Start Wave (Space)</button>
+            </div>
+            
+            <div id="selection-panel" style="display: none;">
+                <h3>Tower Selected</h3>
+                <button id="upgrade-btn">Upgrade ($<span id="upgrade-cost">0</span>)</button>
+                <button id="sell-btn">Sell ($<span id="sell-cost">0</span>)</button>
+            </div>
+        </div>
+
+        <div id="game-over-screen" style="display: none;">
+            <h2 id="game-over-title">Game Over</h2>
+            <button onclick="location.reload()">Restart</button>
+        </div>
+        
+        <div id="message-overlay" style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #fff; text-shadow: 0 0 10px #00ffff; opacity: 0; pointer-events: none; transition: opacity 0.5s;">
+            Wave Started
+        </div>
+    </div>
+    
+    <canvas id="game-canvas"></canvas>
+
+    <script type="module" src="js/main.js?v=6"></script>
+</body>
+</html>
